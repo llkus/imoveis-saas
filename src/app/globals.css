@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #f6f8fc;
+  --foreground: #0f172a;
 }
 
 @theme inline {
@@ -10,17 +10,149 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Paleta da marca */
+  --color-brand-50: #eef3ff;
+  --color-brand-100: #dce6ff;
+  --color-brand-200: #bcd0ff;
+  --color-brand-400: #6b94ff;
+  --color-brand-500: #3d6bf5;
+  --color-brand-600: #2a50dc;
+  --color-brand-700: #2140b3;
+  --color-brand-900: #121f57;
+  --color-accent-400: #ffc233;
+  --color-accent-500: #f5a300;
+  --color-ink-500: #64748b;
+  --color-ink-700: #334155;
+
+  --animate-float: float 6s ease-in-out infinite;
+  --animate-float-slow: float 9s ease-in-out infinite;
+  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-pulse-ring: pulse-ring 2.2s ease-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-14px); }
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgb(37 211 102 / 0.55); }
+  100% { box-shadow: 0 0 0 18px rgb(37 211 102 / 0); }
+}
+
+@keyframes shine {
+  to { transform: translateX(120%) skewX(-20deg); }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+html { scroll-behavior: smooth; }
+::selection { background: var(--color-brand-200); }
+
+/* Aparece suavemente ao rolar (ver components/Reveal.tsx) */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal.in { opacity: 1; transform: none; }
+
+/* Botões */
+.btn {
+  position: relative;
+  overflow: hidden;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  border-radius: 0.875rem;
+  padding: 0.8rem 1.4rem;
+  font-weight: 600;
+  line-height: 1.2;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+}
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: scale(0.96); }
+
+.btn-primary {
+  color: #fff;
+  background-image: linear-gradient(135deg, var(--color-brand-500), var(--color-brand-700));
+  box-shadow: 0 8px 22px -8px rgb(42 80 220 / 0.7);
+}
+.btn-primary:hover { box-shadow: 0 14px 28px -8px rgb(42 80 220 / 0.8); }
+.btn-primary::after {
+  content: "";
+  position: absolute;
+  inset: 0 auto 0 -60%;
+  width: 40%;
+  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.35), transparent);
+  transform: skewX(-20deg);
+}
+.btn-primary:hover::after { animation: shine 0.8s ease; }
+
+.btn-ghost {
+  color: var(--color-ink-700);
+  background: #fff;
+  border: 1px solid #e2e8f0;
+}
+.btn-ghost:hover { border-color: var(--color-brand-400); color: var(--color-brand-700); }
+
+.btn-light { background: #fff; color: #0f172a; box-shadow: 0 8px 24px -10px rgb(0 0 0 / 0.5); }
+
+.btn-whatsapp {
+  color: #fff;
+  background-image: linear-gradient(135deg, #2ee27b, #14a850);
+  box-shadow: 0 8px 22px -8px rgb(20 168 80 / 0.7);
+}
+.btn-whatsapp:hover { box-shadow: 0 14px 28px -8px rgb(20 168 80 / 0.8); }
+
+/* Cartões */
+.card {
+  background: #fff;
+  border: 1px solid #e8edf5;
+  border-radius: 1.25rem;
+  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+}
+.card-hover:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 24px 44px -20px rgb(15 23 42 / 0.28);
+}
+
+.glass {
+  background: rgb(255 255 255 / 0.12);
+  border: 1px solid rgb(255 255 255 / 0.25);
+  backdrop-filter: blur(10px);
+}
+
+.text-gradient {
+  background-image: linear-gradient(120deg, var(--color-brand-500), #8b5cf6 55%, var(--color-accent-500));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+  .reveal { opacity: 1; transform: none; }
 }
