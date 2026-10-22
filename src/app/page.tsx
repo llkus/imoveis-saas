@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Logo from "@/components/Logo";
 
 const beneficios = [
   { t: "Fotos e descrição completas", d: "Suba várias fotos, escolha a capa e descreva cada detalhe do imóvel." },
@@ -10,7 +11,7 @@ export default function Home() {
   return (
     <main className="flex-1">
       <header className="mx-auto flex max-w-5xl items-center justify-between px-6 py-5">
-        <span className="text-lg font-bold">Imóveis SaaS</span>
+        <Logo />
         <nav className="flex gap-3 text-sm">
           <Link href="/exemplo" className="rounded-lg px-4 py-2 hover:bg-black/5">Ver exemplo</Link>
           <Link href="/login" className="rounded-lg bg-blue-700 px-4 py-2 font-medium text-white hover:bg-blue-800">Entrar</Link>

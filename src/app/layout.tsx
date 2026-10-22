@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Imóveis SaaS | Portfólio para corretores",
+  title: "Vitrine | Portfólio de imóveis para corretores",
   description:
     "Cadastre seus imóveis com fotos e descrição completa e envie um portfólio profissional para seus clientes.",
 };
