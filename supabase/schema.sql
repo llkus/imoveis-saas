@@ -1,4 +1,4 @@
-﻿-- Esquema inicial (Supabase / Postgres)
+-- Esquema inicial (Supabase / Postgres)
 
 create table profiles (
   id uuid primary key references auth.users on delete cascade,

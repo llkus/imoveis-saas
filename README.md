@@ -1,4 +1,4 @@
-﻿# Imóveis SaaS
+# Imóveis SaaS
 
 Plataforma para corretores autônomos gerenciarem imóveis (fotos + descrição completa)
 e compartilharem um portfólio/landing page com clientes, inclusive em domínio próprio.
