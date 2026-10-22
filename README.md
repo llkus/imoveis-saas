@@ -17,4 +17,5 @@ e compartilharem um portfólio/landing page com clientes, inclusive em domínio 
 
 ## Status
 - [x] Planejamento e esquema do banco (`supabase/schema.sql`)
-- [ ] Projeto Next.js criado (requer Node.js)
+- [x] Projeto Next.js criado (App Router, TS, Tailwind)
+
