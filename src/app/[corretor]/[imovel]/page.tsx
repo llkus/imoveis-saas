@@ -5,16 +5,17 @@ import { Suspense } from "react";
 import BotaoWhatsapp from "@/components/BotaoWhatsapp";
 import Galeria from "@/components/Galeria";
 import { IconBath, IconBed, IconCar, IconCheck, IconPin, IconRuler, IconWhatsapp } from "@/components/Icons";
-import { formatarPreco, getCorretor, getImovel, linkWhatsapp } from "@/lib/dados";
+import { getCorretor, getImovel } from "@/lib/consultas";
+import { formatarPreco, linkWhatsapp } from "@/lib/dados";
 
 export async function generateMetadata({ params }: PageProps<"/[corretor]/[imovel]">): Promise<Metadata> {
   const { corretor, imovel } = await params;
-  const i = getImovel(corretor, imovel);
+  const i = await getImovel(corretor, imovel);
   if (!i) return {};
   return {
     title: i.titulo,
     description: i.descricao,
-    openGraph: { title: i.titulo, description: i.descricao, images: [i.fotos[0]] },
+    openGraph: { title: i.titulo, description: i.descricao, images: i.fotos.slice(0, 1) },
   };
 }
 
@@ -28,8 +29,7 @@ export default function Page({ params }: PageProps<"/[corretor]/[imovel]">) {
 
 async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, "params">) {
   const { corretor, imovel } = await params;
-  const c = getCorretor(corretor);
-  const i = getImovel(corretor, imovel);
+  const [c, i] = await Promise.all([getCorretor(corretor), getImovel(corretor, imovel)]);
   if (!c || !i) notFound();
 
   const link = linkWhatsapp(c, `Olá! Tenho interesse no imóvel "${i.titulo}". Ainda está disponível?`);

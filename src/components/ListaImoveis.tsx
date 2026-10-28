@@ -56,8 +56,10 @@ export default function ListaImoveis({
             style={{ animationDelay: `${idx * 80}ms` }}
           >
             <div className="relative aspect-[4/3] overflow-hidden bg-slate-100">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={i.fotos[0]} alt={i.titulo} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+              {i.fotos[0] && (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={i.fotos[0]} alt={i.titulo} className="h-full w-full object-cover transition duration-700 group-hover:scale-110" />
+              )}
               <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
               <span className="absolute left-3 top-3 rounded-full bg-white/90 px-3 py-1 text-xs font-bold uppercase tracking-wide text-slate-800 backdrop-blur">
                 {i.finalidade === "venda" ? "Venda" : "Aluguel"}

@@ -23,6 +23,10 @@ export default function Galeria({ fotos, titulo }: { fotos: string[]; titulo: st
     return () => window.removeEventListener("keydown", onKey);
   }, [aberta, ir]);
 
+  if (fotos.length === 0) {
+    return <div className="grid aspect-[16/10] w-full place-items-center rounded-3xl bg-slate-100 text-ink-500">Sem fotos</div>;
+  }
+
   return (
     <div>
       <button

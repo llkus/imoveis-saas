@@ -5,11 +5,12 @@ import { Suspense } from "react";
 import BotaoWhatsapp from "@/components/BotaoWhatsapp";
 import { IconWhatsapp } from "@/components/Icons";
 import ListaImoveis from "@/components/ListaImoveis";
-import { getCorretor, getImoveis, linkWhatsapp } from "@/lib/dados";
+import { getCorretor, getImoveis } from "@/lib/consultas";
+import { linkWhatsapp } from "@/lib/dados";
 
 export async function generateMetadata({ params }: PageProps<"/[corretor]">): Promise<Metadata> {
   const { corretor } = await params;
-  const c = getCorretor(corretor);
+  const c = await getCorretor(corretor);
   if (!c) return {};
   return { title: `${c.nome} | Imóveis`, description: c.bio };
 }
@@ -24,9 +25,9 @@ export default function Page({ params }: PageProps<"/[corretor]">) {
 
 async function Portfolio({ params }: Pick<PageProps<"/[corretor]">, "params">) {
   const { corretor } = await params;
-  const c = getCorretor(corretor);
+  const c = await getCorretor(corretor);
   if (!c) notFound();
-  const lista = getImoveis(c.slug);
+  const lista = await getImoveis(c.slug);
   const msg = "Olá! Vi seu portfólio de imóveis e gostaria de mais informações.";
   const iniciais = c.nome.split(" ").map((p) => p[0]).slice(0, 2).join("");
 
