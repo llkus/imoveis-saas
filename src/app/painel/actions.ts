@@ -33,6 +33,29 @@ function camposImovel(f: FormData) {
   };
 }
 
+const LIMITES_NUMERICOS = [
+  ["preco", "Preço", 1e11],
+  ["quartos", "Quartos", 99],
+  ["banheiros", "Banheiros", 99],
+  ["vagas", "Vagas", 99],
+  ["area_m2", "Área", 1e6],
+] as const;
+
+// Devolve a mensagem do primeiro problema encontrado, ou null se estiver tudo certo.
+function validarImovel(c: ReturnType<typeof camposImovel>) {
+  if (!c.titulo) return "Informe o título do imóvel.";
+  if (c.titulo.length > 120) return "O título pode ter no máximo 120 caracteres.";
+  if ((c.descricao?.length ?? 0) > 5000) return "A descrição pode ter no máximo 5000 caracteres.";
+  for (const [campo, nome, max] of LIMITES_NUMERICOS) {
+    const v = c[campo];
+    if (v !== null && (!Number.isFinite(v) || v < 0 || v > max)) return `${nome}: informe um número válido.`;
+  }
+  if (c.diferenciais.length > 30 || c.diferenciais.some((d) => d.length > 60)) {
+    return "Use até 30 diferenciais de no máximo 60 caracteres cada.";
+  }
+  return null;
+}
+
 function invalidar(slugCorretor: string) {
   revalidatePath("/painel");
   revalidatePath(`/${slugCorretor}`, "layout");
@@ -53,7 +76,8 @@ export async function sair() {
 export async function criarImovel(_: Estado, form: FormData): Promise<Estado> {
   const { db, user, perfil } = await exigirLicenca();
   const campos = camposImovel(form);
-  if (!campos.titulo) return { erro: "Informe o título do imóvel." };
+  const problema = validarImovel(campos);
+  if (problema) return { erro: problema };
 
   const base = slugify(campos.titulo) || "imovel";
   let id: string | undefined;
@@ -78,7 +102,8 @@ export async function criarImovel(_: Estado, form: FormData): Promise<Estado> {
 export async function atualizarImovel(id: string, _: Estado, form: FormData): Promise<Estado> {
   const { db, user, perfil } = await exigirLicenca();
   const campos = camposImovel(form);
-  if (!campos.titulo) return { erro: "Informe o título do imóvel." };
+  const problema = validarImovel(campos);
+  if (problema) return { erro: problema };
   const { error } = await db.from("imoveis").update(campos).eq("id", id).eq("corretor_id", user.id);
   if (error) return { erro: error.message };
   invalidar(perfil.slug);
@@ -99,6 +124,7 @@ export async function salvarPerfil(_: Estado, form: FormData): Promise<Estado> {
   const { db, user, perfil } = await exigirLicenca();
   const nome = texto(form, "nome");
   if (!nome) return { erro: "Informe seu nome." };
+  if (nome.length > 100 || texto(form, "bio").length > 1000) return { erro: "Nome (até 100) ou bio (até 1000 caracteres) muito longos." };
   const cor = texto(form, "cor_primaria");
   const { error } = await db
     .from("profiles")
