@@ -20,7 +20,9 @@ export function videoEmbed(url: string | null | undefined): VideoEmbed | null {
   if (host === "youtu.be" || host === "youtube.com") {
     const partes = u.pathname.split("/").filter(Boolean);
     const id =
-      host === "youtu.be" ? partes[0] : u.searchParams.get("v") ?? (["shorts", "embed", "live"].includes(partes[0]) ? partes[1] : undefined);
+      host === "youtu.be"
+        ? partes[0]
+        : (u.searchParams.get("v") ?? (["shorts", "embed", "live"].includes(partes[0]) ? partes[1] : undefined));
     return id && /^[\w-]{6,20}$/.test(id)
       ? { provedor: "youtube", embed: `https://www.youtube-nocookie.com/embed/${id}`, original }
       : null;
@@ -29,7 +31,11 @@ export function videoEmbed(url: string | null | undefined): VideoEmbed | null {
   if (host === "instagram.com") {
     const [tipo, codigo] = u.pathname.split("/").filter(Boolean);
     return ["p", "reel", "reels", "tv"].includes(tipo) && /^[\w-]{5,20}$/.test(codigo ?? "")
-      ? { provedor: "instagram", embed: `https://www.instagram.com/${tipo === "reels" ? "reel" : tipo}/${codigo}/embed`, original }
+      ? {
+          provedor: "instagram",
+          embed: `https://www.instagram.com/${tipo === "reels" ? "reel" : tipo}/${codigo}/embed`,
+          original,
+        }
       : null;
   }
   return null;

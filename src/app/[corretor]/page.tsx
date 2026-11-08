@@ -63,7 +63,12 @@ async function Portfolio({ params }: Pick<PageProps<"/[corretor]">, "params">) {
       <section className="relative mx-auto -mt-16 max-w-5xl px-5 sm:-mt-20 sm:px-6">
         <div className="animate-fade-up">
           <div className="w-fit rounded-full ring-4 ring-background">
-            <Avatar nome={c.nome} fotoUrl={c.fotoUrl} cor={cor} className="h-28 w-28 text-4xl shadow-lg sm:h-36 sm:w-36" />
+            <Avatar
+              nome={c.nome}
+              fotoUrl={c.fotoUrl}
+              cor={cor}
+              className="h-28 w-28 text-4xl shadow-lg sm:h-36 sm:w-36"
+            />
           </div>
 
           <div className="mt-5 grid gap-6 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -72,15 +77,21 @@ async function Portfolio({ params }: Pick<PageProps<"/[corretor]">, "params">) {
               <h1 className="font-display mt-1 text-4xl font-medium leading-tight sm:text-5xl">{c.nome}</h1>
               {c.bio && <p className="mt-3 max-w-2xl whitespace-pre-line leading-relaxed text-ink-700">{c.bio}</p>}
               <div className="mt-6 flex flex-wrap gap-3">
-                <a href={linkWhatsapp(c, msg)} className="btn btn-whatsapp"><IconWhatsapp /> Falar no WhatsApp</a>
-                <a href="#imoveis" className="btn btn-ghost">Ver imóveis</a>
+                <a href={linkWhatsapp(c, msg)} className="btn btn-whatsapp">
+                  <IconWhatsapp /> Falar no WhatsApp
+                </a>
+                <a href="#imoveis" className="btn btn-ghost">
+                  Ver imóveis
+                </a>
               </div>
             </div>
 
             <dl className="flex divide-x divide-slate-300 self-start lg:self-end">
               {numeros.map(([n, l]) => (
                 <div key={l} className="px-5 first:pl-0 last:pr-0 lg:text-right">
-                  <dd className="font-display text-4xl font-medium leading-none" style={{ color: cor }}>{n}</dd>
+                  <dd className="font-display text-4xl font-medium leading-none" style={{ color: cor }}>
+                    {n}
+                  </dd>
                   <dt className="mt-1.5 text-xs text-ink-500">{l}</dt>
                 </div>
               ))}
@@ -96,7 +107,9 @@ async function Portfolio({ params }: Pick<PageProps<"/[corretor]">, "params">) {
 
       <footer className="mt-16 border-t border-slate-200 py-8 text-center text-sm text-ink-500">
         Portfólio de {c.nome} · feito com{" "}
-        <Link href="/" className="font-display text-base font-medium text-foreground hover:underline">Vitrine</Link>
+        <Link href="/" className="font-display text-base font-medium text-foreground hover:underline">
+          Vitrine
+        </Link>
       </footer>
 
       <ProtegerImagens />

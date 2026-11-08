@@ -152,8 +152,12 @@ export default function Enquadrar({
         </label>
 
         <div className="mt-5 flex justify-end gap-2 text-sm font-semibold">
-          <button type="button" onClick={onCancelar} className="btn btn-ghost !px-4 !py-2">Cancelar</button>
-          <button type="button" onClick={confirmar} disabled={!nat} className="btn btn-primary !px-4 !py-2">Salvar</button>
+          <button type="button" onClick={onCancelar} className="btn btn-ghost !px-4 !py-2">
+            Cancelar
+          </button>
+          <button type="button" onClick={confirmar} disabled={!nat} className="btn btn-primary !px-4 !py-2">
+            Salvar
+          </button>
         </div>
       </div>
     </div>

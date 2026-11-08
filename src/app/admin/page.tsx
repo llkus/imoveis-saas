@@ -21,7 +21,7 @@ export default function Page({ searchParams }: PageProps<"/admin">) {
   return (
     <div className="fundo-painel flex-1">
       <TopoPainel>
-        <Link href="/painel" >← Meu painel</Link>
+        <Link href="/painel">← Meu painel</Link>
       </TopoPainel>
       <main className="mx-auto max-w-5xl px-6 py-8">
         <p className="sobretitulo">Administração</p>
@@ -37,7 +37,7 @@ export default function Page({ searchParams }: PageProps<"/admin">) {
 async function Lista({ searchParams }: Pick<PageProps<"/admin">, "searchParams">) {
   const { db } = await exigirAdmin();
   const bruto = (await searchParams).q;
-  const q = (Array.isArray(bruto) ? bruto[0] : bruto ?? "").trim().slice(0, 100);
+  const q = (Array.isArray(bruto) ? bruto[0] : (bruto ?? "")).trim().slice(0, 100);
 
   const { data, error } = await db.rpc("admin_listar_corretores", { busca: q });
   const lista = (data ?? []) as Corretor[];
@@ -57,12 +57,17 @@ async function Lista({ searchParams }: Pick<PageProps<"/admin">, "searchParams">
           className="input min-w-0 flex-1 basis-64"
         />
         <button className="btn btn-primary">Buscar</button>
-        {q && <Link href="/admin" className="btn btn-ghost">Limpar</Link>}
+        {q && (
+          <Link href="/admin" className="btn btn-ghost">
+            Limpar
+          </Link>
+        )}
       </form>
 
       {error ? (
         <p className="mt-6 rounded-2xl border border-red-200 bg-red-50 p-4 text-sm text-red-700">
-          Não foi possível carregar os corretores. Rode o arquivo <code>supabase/admin_busca.sql</code> no SQL Editor do Supabase.
+          Não foi possível carregar os corretores. Rode o arquivo <code>supabase/admin_busca.sql</code> no SQL Editor do
+          Supabase.
           <span className="mt-1 block text-xs opacity-80">{error.message}</span>
         </p>
       ) : (
@@ -80,15 +85,32 @@ async function Lista({ searchParams }: Pick<PageProps<"/admin">, "searchParams">
               return (
                 <li key={p.id} className="card flex flex-wrap items-center gap-4 p-4">
                   <div className="min-w-0 flex-1">
-                    <p className="font-bold">{p.nome}{p.is_admin && <span className="ml-2 text-xs text-brand-600">admin</span>}</p>
+                    <p className="font-bold">
+                      {p.nome}
+                      {p.is_admin && <span className="ml-2 text-xs text-brand-600">admin</span>}
+                    </p>
                     <p className="truncate text-sm text-ink-700">{p.email ?? "sem e-mail"}</p>
                     <p className="text-sm text-ink-500">/{p.slug}</p>
-                    <span className={`mt-1 inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${valida ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}>
-                      {valida ? (p.licenca_expira_em ? `Ativa até ${new Date(p.licenca_expira_em + "T00:00").toLocaleDateString("pt-BR")}` : "Ativa") : p.licenca_ativa ? "Expirada" : "Inativa"}
+                    <span
+                      className={`mt-1 inline-block rounded-full px-2.5 py-0.5 text-xs font-semibold ${valida ? "bg-green-100 text-green-700" : "bg-red-100 text-red-700"}`}
+                    >
+                      {valida
+                        ? p.licenca_expira_em
+                          ? `Ativa até ${new Date(p.licenca_expira_em + "T00:00").toLocaleDateString("pt-BR")}`
+                          : "Ativa"
+                        : p.licenca_ativa
+                          ? "Expirada"
+                          : "Inativa"}
                     </span>
                   </div>
                   <form action={definirLicenca.bind(null, p.id, true)} className="flex items-center gap-2">
-                    <input type="date" name="expira_em" defaultValue={p.licenca_expira_em ?? ""} className="input w-auto" aria-label="Vencimento (opcional)" />
+                    <input
+                      type="date"
+                      name="expira_em"
+                      defaultValue={p.licenca_expira_em ?? ""}
+                      className="input w-auto"
+                      aria-label="Vencimento (opcional)"
+                    />
                     <button className="btn btn-primary">{valida ? "Atualizar" : "Ativar"}</button>
                   </form>
                   {p.licenca_ativa && (

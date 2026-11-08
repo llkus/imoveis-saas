@@ -18,8 +18,14 @@ export default async function Page({ params }: PageProps<"/painel/imoveis/[id]">
   return (
     <>
       <div className="flex flex-wrap items-center justify-between gap-3">
-        <Link href="/painel" className="text-sm font-medium text-ink-500 hover:text-foreground">← Voltar</Link>
-        <Link href={`/${perfil.slug}/${imovel.slug}`} target="_blank" className="text-sm font-semibold text-brand-600 hover:underline">
+        <Link href="/painel" className="text-sm font-medium text-ink-500 hover:text-foreground">
+          ← Voltar
+        </Link>
+        <Link
+          href={`/${perfil.slug}/${imovel.slug}`}
+          target="_blank"
+          className="text-sm font-semibold text-brand-600 hover:underline"
+        >
           Ver página pública ↗
         </Link>
       </div>

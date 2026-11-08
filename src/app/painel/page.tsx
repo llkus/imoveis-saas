@@ -31,12 +31,18 @@ export default async function Page() {
           <h1 className="font-display mt-2 text-4xl font-medium">Meus imóveis</h1>
           <p className="mt-2 text-sm text-ink-500">
             Seu portfólio:{" "}
-            <Link href={`/${perfil.slug}`} target="_blank" className="font-semibold text-brand-600 underline-offset-4 hover:underline">
+            <Link
+              href={`/${perfil.slug}`}
+              target="_blank"
+              className="font-semibold text-brand-600 underline-offset-4 hover:underline"
+            >
               /{perfil.slug} ↗
             </Link>
           </p>
         </div>
-        <Link href="/painel/imoveis/novo" className="btn btn-primary">+ Novo imóvel</Link>
+        <Link href="/painel/imoveis/novo" className="btn btn-primary">
+          + Novo imóvel
+        </Link>
       </div>
 
       <div className="mt-8 grid grid-cols-3 divide-x divide-slate-200 rounded-2xl border border-slate-200 bg-surface py-5">
@@ -52,7 +58,9 @@ export default async function Page() {
         <div className="mt-8 rounded-2xl border border-dashed border-slate-300 p-12 text-center">
           <p className="font-display text-2xl font-medium">Nenhum imóvel por aqui ainda</p>
           <p className="mt-2 text-ink-500">Cadastre o primeiro e ele aparece no seu portfólio na hora.</p>
-          <Link href="/painel/imoveis/novo" className="btn btn-primary mt-6">Cadastrar imóvel</Link>
+          <Link href="/painel/imoveis/novo" className="btn btn-primary mt-6">
+            Cadastrar imóvel
+          </Link>
         </div>
       ) : (
         <ul className="mt-8 grid gap-3">
@@ -78,7 +86,9 @@ export default async function Page() {
                     <p className="truncate text-sm text-ink-500">{[i.bairro, i.cidade].filter(Boolean).join(", ")}</p>
                     <p className="font-display mt-0.5 text-lg font-medium text-brand-700">{preco}</p>
                   </div>
-                  <span className={`hidden rounded-full px-3 py-1 text-xs font-semibold capitalize sm:block ${status[i.status] ?? status.ativo}`}>
+                  <span
+                    className={`hidden rounded-full px-3 py-1 text-xs font-semibold capitalize sm:block ${status[i.status] ?? status.ativo}`}
+                  >
                     {i.status}
                   </span>
                   <span className="text-ink-500">→</span>

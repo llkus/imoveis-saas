@@ -9,10 +9,7 @@ export default function Galeria({ fotos, titulo }: { fotos: string[]; titulo: st
   const [atual, setAtual] = useState(0);
   const [aberta, setAberta] = useState(false);
 
-  const ir = useCallback(
-    (d: number) => setAtual((a) => (a + d + fotos.length) % fotos.length),
-    [fotos.length],
-  );
+  const ir = useCallback((d: number) => setAtual((a) => (a + d + fotos.length) % fotos.length), [fotos.length]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
@@ -25,7 +22,11 @@ export default function Galeria({ fotos, titulo }: { fotos: string[]; titulo: st
   }, [ir]);
 
   if (fotos.length === 0) {
-    return <div className="grid aspect-[16/10] w-full place-items-center rounded-3xl bg-slate-100 text-ink-500 lg:h-full lg:rounded-none">Sem fotos</div>;
+    return (
+      <div className="grid aspect-[16/10] w-full place-items-center rounded-3xl bg-slate-100 text-ink-500 lg:h-full lg:rounded-none">
+        Sem fotos
+      </div>
+    );
   }
 
   return (
@@ -87,11 +88,17 @@ export default function Galeria({ fotos, titulo }: { fotos: string[]; titulo: st
           className="fixed inset-0 z-50 grid animate-[fade-in_0.25s_ease] place-items-center bg-black/90 p-4"
           onClick={() => setAberta(false)}
         >
-          <button className="absolute right-5 top-5 rounded-full bg-white/10 p-2 text-white hover:bg-white/20" aria-label="Fechar">
+          <button
+            className="absolute right-5 top-5 rounded-full bg-white/10 p-2 text-white hover:bg-white/20"
+            aria-label="Fechar"
+          >
             <IconClose />
           </button>
           <button
-            onClick={(e) => { e.stopPropagation(); ir(-1); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              ir(-1);
+            }}
             className="absolute left-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
             aria-label="Foto anterior"
           >
@@ -105,7 +112,10 @@ export default function Galeria({ fotos, titulo }: { fotos: string[]; titulo: st
             onClick={(e) => e.stopPropagation()}
           />
           <button
-            onClick={(e) => { e.stopPropagation(); ir(1); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              ir(1);
+            }}
             className="absolute right-4 rounded-full bg-white/10 p-3 text-white hover:bg-white/20"
             aria-label="Próxima foto"
           >

@@ -22,10 +22,16 @@ async function Casca({ children }: { children: React.ReactNode }) {
   return (
     <>
       <TopoPainel>
-        <Link href="/painel" >Imóveis</Link>
-        <Link href="/painel/perfil" >Meu perfil</Link>
-        {perfil.is_admin && <Link href="/admin" className="rounded-full bg-brand-50 px-3 py-1 text-brand-700">Admin</Link>}
-        <form action={sair}><button>Sair</button></form>
+        <Link href="/painel">Imóveis</Link>
+        <Link href="/painel/perfil">Meu perfil</Link>
+        {perfil.is_admin && (
+          <Link href="/admin" className="rounded-full bg-brand-50 px-3 py-1 text-brand-700">
+            Admin
+          </Link>
+        )}
+        <form action={sair}>
+          <button>Sair</button>
+        </form>
       </TopoPainel>
       <main className="mx-auto max-w-5xl px-6 py-8">{children}</main>
     </>

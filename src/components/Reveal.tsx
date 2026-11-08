@@ -31,11 +31,7 @@ export default function Reveal({
   }, []);
 
   return (
-    <div
-      ref={ref}
-      className={`reveal ${visivel ? "in" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
-    >
+    <div ref={ref} className={`reveal ${visivel ? "in" : ""} ${className}`} style={{ transitionDelay: `${delay}ms` }}>
       {children}
     </div>
   );

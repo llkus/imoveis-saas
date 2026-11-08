@@ -61,7 +61,9 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
   const [uf, setUf] = useState(inicial?.uf ?? "");
   const [mostrar, setMostrar] = useState(inicial?.mostrar_endereco ?? "completo");
   const [coord, setCoord] = useState<{ latitude: number; longitude: number } | null>(
-    inicial?.latitude != null && inicial?.longitude != null ? { latitude: inicial.latitude, longitude: inicial.longitude } : null,
+    inicial?.latitude != null && inicial?.longitude != null
+      ? { latitude: inicial.latitude, longitude: inicial.longitude }
+      : null,
   );
 
   const [busca, setBusca] = useState("");
@@ -78,7 +80,13 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
     setErroCep(null);
     try {
       const resp = await fetch(`https://viacep.com.br/ws/${digitos}/json/`);
-      const d = (await resp.json()) as { erro?: boolean; logradouro?: string; bairro?: string; localidade?: string; uf?: string };
+      const d = (await resp.json()) as {
+        erro?: boolean;
+        logradouro?: string;
+        bairro?: string;
+        localidade?: string;
+        uf?: string;
+      };
       if (!resp.ok || d.erro) {
         setErroCep("CEP não encontrado. Preencha o endereço manualmente.");
         return;
@@ -146,7 +154,9 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-[160px_1fr]">
         <div>
-          <label className="label" htmlFor="cep">CEP</label>
+          <label className="label" htmlFor="cep">
+            CEP
+          </label>
           <input
             id="cep"
             name="cep"
@@ -164,7 +174,9 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
           {erroCep && <p className="mt-1 text-xs font-medium text-red-600">{erroCep}</p>}
         </div>
         <div>
-          <label className="label" htmlFor="busca-endereco">Buscar endereço no mapa</label>
+          <label className="label" htmlFor="busca-endereco">
+            Buscar endereço no mapa
+          </label>
           <div className="flex gap-2">
             <input
               id="busca-endereco"
@@ -180,7 +192,12 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
               placeholder="Ex.: Rua das Flores 120, Petrópolis RJ"
               autoComplete="off"
             />
-            <button type="button" className="btn btn-primary shrink-0" onClick={() => buscar(false)} disabled={buscando}>
+            <button
+              type="button"
+              className="btn btn-primary shrink-0"
+              onClick={() => buscar(false)}
+              disabled={buscando}
+            >
               {buscando ? "Buscando…" : "Buscar"}
             </button>
           </div>
@@ -207,39 +224,104 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
 
       <div className="grid gap-4 sm:grid-cols-[1fr_120px_1fr]">
         <div>
-          <label className="label" htmlFor="endereco">Endereço (rua)</label>
-          <input id="endereco" name="endereco" className="input" value={endereco} onChange={(e) => setEndereco(e.target.value)} maxLength={200} />
+          <label className="label" htmlFor="endereco">
+            Endereço (rua)
+          </label>
+          <input
+            id="endereco"
+            name="endereco"
+            className="input"
+            value={endereco}
+            onChange={(e) => setEndereco(e.target.value)}
+            maxLength={200}
+          />
         </div>
         <div>
-          <label className="label" htmlFor="numero">Número</label>
-          <input id="numero" name="numero" className="input" value={numero} onChange={(e) => setNumero(e.target.value)} maxLength={20} />
+          <label className="label" htmlFor="numero">
+            Número
+          </label>
+          <input
+            id="numero"
+            name="numero"
+            className="input"
+            value={numero}
+            onChange={(e) => setNumero(e.target.value)}
+            maxLength={20}
+          />
         </div>
         <div>
-          <label className="label" htmlFor="complemento">Complemento</label>
-          <input id="complemento" name="complemento" className="input" placeholder="Ex.: Ap 101" value={complemento} onChange={(e) => setComplemento(e.target.value)} maxLength={100} />
+          <label className="label" htmlFor="complemento">
+            Complemento
+          </label>
+          <input
+            id="complemento"
+            name="complemento"
+            className="input"
+            placeholder="Ex.: Ap 101"
+            value={complemento}
+            onChange={(e) => setComplemento(e.target.value)}
+            maxLength={100}
+          />
         </div>
       </div>
 
       <div className="grid gap-4 sm:grid-cols-[1fr_1fr_80px]">
         <div>
-          <label className="label" htmlFor="bairro">Bairro</label>
-          <input id="bairro" name="bairro" className="input" value={bairro} onChange={(e) => setBairro(e.target.value)} />
+          <label className="label" htmlFor="bairro">
+            Bairro
+          </label>
+          <input
+            id="bairro"
+            name="bairro"
+            className="input"
+            value={bairro}
+            onChange={(e) => setBairro(e.target.value)}
+          />
         </div>
         <div>
-          <label className="label" htmlFor="cidade">Cidade</label>
-          <input id="cidade" name="cidade" className="input" value={cidade} onChange={(e) => setCidade(e.target.value)} />
+          <label className="label" htmlFor="cidade">
+            Cidade
+          </label>
+          <input
+            id="cidade"
+            name="cidade"
+            className="input"
+            value={cidade}
+            onChange={(e) => setCidade(e.target.value)}
+          />
         </div>
         <div>
-          <label className="label" htmlFor="uf">UF</label>
-          <input id="uf" name="uf" maxLength={2} className="input uppercase" value={uf} onChange={(e) => setUf(e.target.value)} />
+          <label className="label" htmlFor="uf">
+            UF
+          </label>
+          <input
+            id="uf"
+            name="uf"
+            maxLength={2}
+            className="input uppercase"
+            value={uf}
+            onChange={(e) => setUf(e.target.value)}
+          />
         </div>
       </div>
 
       <div className="flex flex-wrap items-end gap-4">
         <div className="min-w-56">
-          <label className="label" htmlFor="mostrar_endereco">O que mostrar na página pública</label>
-          <select id="mostrar_endereco" name="mostrar_endereco" className="input" value={mostrar} onChange={(e) => setMostrar(e.target.value)}>
-            {OPCOES_MOSTRAR.map(([v, nome]) => <option key={v} value={v}>{nome}</option>)}
+          <label className="label" htmlFor="mostrar_endereco">
+            O que mostrar na página pública
+          </label>
+          <select
+            id="mostrar_endereco"
+            name="mostrar_endereco"
+            className="input"
+            value={mostrar}
+            onChange={(e) => setMostrar(e.target.value)}
+          >
+            {OPCOES_MOSTRAR.map(([v, nome]) => (
+              <option key={v} value={v}>
+                {nome}
+              </option>
+            ))}
           </select>
         </div>
         <button type="button" className="btn btn-ghost" onClick={() => buscar(true)} disabled={buscando}>
@@ -257,7 +339,12 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
               <IconCheck className="h-4 w-4" /> Localização verificada no mapa
             </p>
             <div className="flex gap-3 text-sm font-semibold">
-              <a href={urlGoogleMaps({ ...coord, consulta })} target="_blank" rel="noopener noreferrer" className="text-brand-600 hover:underline">
+              <a
+                href={urlGoogleMaps({ ...coord, consulta })}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-brand-600 hover:underline"
+              >
                 Conferir no Google Maps ↗
               </a>
               <button type="button" className="text-red-600 hover:underline" onClick={() => setCoord(null)}>
@@ -277,7 +364,8 @@ export default function CampoLocalizacao({ inicial }: { inicial?: Inicial }) {
         </div>
       ) : (
         <p className="text-xs text-ink-500">
-          Sem localização verificada, a página do imóvel mostra o mapa apenas pelo texto do endereço. O complemento nunca aparece na página pública.
+          Sem localização verificada, a página do imóvel mostra o mapa apenas pelo texto do endereço. O complemento
+          nunca aparece na página pública.
         </p>
       )}
     </div>

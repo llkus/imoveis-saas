@@ -23,8 +23,12 @@ async function Status() {
 
   return (
     <div className="card p-8 text-center">
-      <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-accent-400/20 text-2xl">{expirada ? "⏳" : "🔑"}</div>
-      <h1 className="font-display mt-4 text-3xl font-medium">{expirada ? "Sua licença expirou" : "Licença pendente"}</h1>
+      <div className="mx-auto grid h-14 w-14 place-items-center rounded-full bg-accent-400/20 text-2xl">
+        {expirada ? "⏳" : "🔑"}
+      </div>
+      <h1 className="font-display mt-4 text-3xl font-medium">
+        {expirada ? "Sua licença expirou" : "Licença pendente"}
+      </h1>
       <p className="mt-3 text-sm text-ink-700">
         {expirada
           ? `Sua licença venceu em ${new Date(perfil.licenca_expira_em + "T00:00").toLocaleDateString("pt-BR")}.`

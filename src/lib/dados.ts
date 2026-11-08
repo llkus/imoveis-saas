@@ -58,12 +58,14 @@ export type Imovel = {
   status: "ativo" | "vendido";
 };
 
-const moeda = (v: number) => v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
+const moeda = (v: number) =>
+  v.toLocaleString("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
 
 export const temFinalidade = (i: Pick<Imovel, "finalidade">, f: "venda" | "aluguel") =>
   i.finalidade === f || i.finalidade === "ambos";
 
-export const rotuloFinalidade = (f: Finalidade) => (f === "venda" ? "Venda" : f === "aluguel" ? "Aluguel" : "Venda e aluguel");
+export const rotuloFinalidade = (f: Finalidade) =>
+  f === "venda" ? "Venda" : f === "aluguel" ? "Aluguel" : "Venda e aluguel";
 
 // Preço principal: venda (também em "venda e aluguel") ou aluguel mensal.
 export function formatarPreco(i: Pick<Imovel, "preco" | "finalidade">) {
@@ -71,7 +73,8 @@ export function formatarPreco(i: Pick<Imovel, "preco" | "finalidade">) {
   return i.finalidade === "aluguel" ? `${v}/mês` : v;
 }
 
-export const formatarAluguel = (i: Pick<Imovel, "precoAluguel">) => (i.precoAluguel ? `${moeda(i.precoAluguel)}/mês` : null);
+export const formatarAluguel = (i: Pick<Imovel, "precoAluguel">) =>
+  i.precoAluguel ? `${moeda(i.precoAluguel)}/mês` : null;
 
 export const formatarMoeda = moeda;
 

@@ -40,26 +40,46 @@ export default function FormAuth() {
         {cadastro && (
           <>
             <div>
-              <label className="label" htmlFor="nome">Seu nome</label>
+              <label className="label" htmlFor="nome">
+                Seu nome
+              </label>
               <input id="nome" name="nome" className="input" autoComplete="name" required />
             </div>
             <div>
-              <label className="label" htmlFor="slug">Endereço do seu portfólio</label>
+              <label className="label" htmlFor="slug">
+                Endereço do seu portfólio
+              </label>
               <input id="slug" name="slug" className="input" placeholder="maria-silva" required />
               <p className="mt-1 text-xs text-ink-500">Seu link será /seu-endereco</p>
             </div>
           </>
         )}
         <div>
-          <label className="label" htmlFor="email">E-mail</label>
+          <label className="label" htmlFor="email">
+            E-mail
+          </label>
           <input id="email" name="email" type="email" className="input" autoComplete="email" required />
         </div>
         <div>
-          <label className="label" htmlFor="senha">Senha</label>
-          <input id="senha" name="senha" type="password" className="input" minLength={6} autoComplete={cadastro ? "new-password" : "current-password"} required />
+          <label className="label" htmlFor="senha">
+            Senha
+          </label>
+          <input
+            id="senha"
+            name="senha"
+            type="password"
+            className="input"
+            minLength={6}
+            autoComplete={cadastro ? "new-password" : "current-password"}
+            required
+          />
         </div>
-        {estado?.erro && <p className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{estado.erro}</p>}
-        {estado?.aviso && <p className="rounded-lg bg-green-50 px-3 py-2 text-sm font-medium text-green-700">{estado.aviso}</p>}
+        {estado?.erro && (
+          <p className="rounded-lg bg-red-50 px-3 py-2 text-sm font-medium text-red-700">{estado.erro}</p>
+        )}
+        {estado?.aviso && (
+          <p className="rounded-lg bg-green-50 px-3 py-2 text-sm font-medium text-green-700">{estado.aviso}</p>
+        )}
         <button className="btn btn-primary w-full" disabled={pendente}>
           {pendente ? "Aguarde…" : cadastro ? "Criar conta" : "Entrar"} {!pendente && <IconArrow />}
         </button>

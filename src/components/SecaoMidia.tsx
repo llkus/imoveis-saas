@@ -10,7 +10,9 @@ export default function SecaoMidia({ videoUrl, tourUrl, cor }: { videoUrl?: stri
       {video && (
         <div>
           <h2 className="font-display text-3xl font-medium">Vídeo</h2>
-          <div className={`mt-4 overflow-hidden rounded-3xl border border-slate-200 bg-black ${video.provedor === "instagram" ? "mx-auto max-w-sm" : ""}`}>
+          <div
+            className={`mt-4 overflow-hidden rounded-3xl border border-slate-200 bg-black ${video.provedor === "instagram" ? "mx-auto max-w-sm" : ""}`}
+          >
             <iframe
               src={video.embed}
               title="Vídeo do imóvel"
@@ -21,7 +23,13 @@ export default function SecaoMidia({ videoUrl, tourUrl, cor }: { videoUrl?: stri
               className={`w-full ${video.provedor === "instagram" ? "h-[560px] bg-white" : "aspect-video"}`}
             />
           </div>
-          <a href={video.original} target="_blank" rel="noopener noreferrer" className="mt-3 inline-block text-sm font-semibold hover:underline" style={{ color: cor }}>
+          <a
+            href={video.original}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-3 inline-block text-sm font-semibold hover:underline"
+            style={{ color: cor }}
+          >
             {video.provedor === "instagram" ? "Ver no Instagram ↗" : "Ver no YouTube ↗"}
           </a>
         </div>

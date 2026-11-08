@@ -29,7 +29,8 @@ function unirItens(marcados: FormDataEntryValue[], extras: string) {
   return [...new Set(todos)];
 }
 
-const escolha = <T extends string>(valor: string, validos: readonly T[]) => (validos as readonly string[]).includes(valor) ? (valor as T) : null;
+const escolha = <T extends string>(valor: string, validos: readonly T[]) =>
+  (validos as readonly string[]).includes(valor) ? (valor as T) : null;
 
 function camposImovel(f: FormData) {
   const finalidade = escolha(texto(f, "finalidade"), ["venda", "aluguel", "ambos"] as const) ?? "venda";
@@ -122,7 +123,8 @@ function validarImovel(c: ReturnType<typeof camposImovel>) {
       return "Use até 40 características de no máximo 60 caracteres cada.";
     }
   }
-  if (c.video_url && !videoEmbed(c.video_url)) return "Vídeo: use um link público do YouTube ou do Instagram (reel ou post).";
+  if (c.video_url && !videoEmbed(c.video_url))
+    return "Vídeo: use um link público do YouTube ou do Instagram (reel ou post).";
   if (c.tour_url && !urlTourValida(c.tour_url)) return "Tour virtual: informe um link que comece com https://.";
   return null;
 }
@@ -189,7 +191,8 @@ export async function salvarPerfil(_: Estado, form: FormData): Promise<Estado> {
   const { db, user, perfil } = await exigirLicenca();
   const nome = texto(form, "nome");
   if (!nome) return { erro: "Informe seu nome." };
-  if (nome.length > 100 || texto(form, "bio").length > 1000) return { erro: "Nome (até 100) ou bio (até 1000 caracteres) muito longos." };
+  if (nome.length > 100 || texto(form, "bio").length > 1000)
+    return { erro: "Nome (até 100) ou bio (até 1000 caracteres) muito longos." };
   const cor = texto(form, "cor_primaria");
   const { error } = await db
     .from("profiles")
@@ -214,8 +217,15 @@ export async function salvarImagemPerfil(campo: "foto_url" | "capa_url", url: st
     return { erro: "Imagem inválida." };
   }
 
-  const { data: atual } = await db.from("profiles").select(campo).eq("id", user.id).single<Record<string, string | null>>();
-  const { error } = await db.from("profiles").update({ [campo]: url }).eq("id", user.id);
+  const { data: atual } = await db
+    .from("profiles")
+    .select(campo)
+    .eq("id", user.id)
+    .single<Record<string, string | null>>();
+  const { error } = await db
+    .from("profiles")
+    .update({ [campo]: url })
+    .eq("id", user.id);
   if (error) return { erro: error.message };
 
   const antiga = atual?.[campo];

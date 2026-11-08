@@ -1,23 +1,50 @@
 // Listas fixas das caixas de marcação do cadastro (mesmas do Canal Pro).
 
 export const TIPOS_IMOVEL = [
-  "Apartamento", "Casa", "Casa de condomínio", "Casa de vila", "Cobertura", "Sobrado", "Flat",
-  "Kitnet/Conjugado", "Loft", "Studio", "Lote/Terreno", "Fazenda/Sítio/Chácara", "Sala comercial",
+  "Apartamento",
+  "Casa",
+  "Casa de condomínio",
+  "Casa de vila",
+  "Cobertura",
+  "Sobrado",
+  "Flat",
+  "Kitnet/Conjugado",
+  "Loft",
+  "Studio",
+  "Lote/Terreno",
+  "Fazenda/Sítio/Chácara",
+  "Sala comercial",
   "Prédio/Edifício inteiro",
 ];
 
 export const CATEGORIAS = ["Padrão", "Duplex", "Triplex"];
 
 export const CARACTERISTICAS_IMOVEL = [
-  "Aceita animais", "Ar-condicionado", "Closet", "Cozinha americana", "Lareira", "Mobiliado", "Varanda gourmet",
+  "Aceita animais",
+  "Ar-condicionado",
+  "Closet",
+  "Cozinha americana",
+  "Lareira",
+  "Mobiliado",
+  "Varanda gourmet",
 ];
 
 export const GRUPOS_CONDOMINIO: { nome: string; itens: string[] }[] = [
   {
     nome: "Lazer e esporte",
     itens: [
-      "Academia", "Churrasqueira", "Cinema", "Espaço gourmet", "Jardim", "Piscina", "Playground",
-      "Quadra de squash", "Quadra de tênis", "Quadra poliesportiva", "Salão de festas", "Salão de jogos",
+      "Academia",
+      "Churrasqueira",
+      "Cinema",
+      "Espaço gourmet",
+      "Jardim",
+      "Piscina",
+      "Playground",
+      "Quadra de squash",
+      "Quadra de tênis",
+      "Quadra poliesportiva",
+      "Salão de festas",
+      "Salão de jogos",
     ],
   },
   {

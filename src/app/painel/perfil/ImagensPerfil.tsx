@@ -68,17 +68,30 @@ export default function ImagensPerfil({
 
   return (
     <section className="card overflow-hidden">
-      <div className="relative h-40 sm:h-52" style={{ background: `linear-gradient(135deg, ${cor}, color-mix(in srgb, ${cor} 45%, #0b1020))` }}>
+      <div
+        className="relative h-40 sm:h-52"
+        style={{ background: `linear-gradient(135deg, ${cor}, color-mix(in srgb, ${cor} 45%, #0b1020))` }}
+      >
         {capaUrl && (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={capaUrl} alt="Capa do perfil" className="absolute inset-0 h-full w-full object-cover" />
         )}
         <div className="absolute right-3 top-3 flex gap-2 text-xs font-semibold">
-          <button type="button" disabled={ocupado} onClick={() => entradaCapa.current?.click()} className="rounded-full bg-black/55 px-3 py-1.5 text-white backdrop-blur hover:bg-black/70">
+          <button
+            type="button"
+            disabled={ocupado}
+            onClick={() => entradaCapa.current?.click()}
+            className="rounded-full bg-black/55 px-3 py-1.5 text-white backdrop-blur hover:bg-black/70"
+          >
             {capaUrl ? "Trocar capa" : "Adicionar capa"}
           </button>
           {capaUrl && (
-            <button type="button" disabled={ocupado} onClick={() => remover("capa_url")} className="rounded-full bg-black/55 px-3 py-1.5 text-white backdrop-blur hover:bg-black/70">
+            <button
+              type="button"
+              disabled={ocupado}
+              onClick={() => remover("capa_url")}
+              className="rounded-full bg-black/55 px-3 py-1.5 text-white backdrop-blur hover:bg-black/70"
+            >
               Remover
             </button>
           )}
@@ -90,18 +103,48 @@ export default function ImagensPerfil({
           <Avatar nome={nome} fotoUrl={fotoUrl} cor={cor} className="h-24 w-24 text-3xl" />
         </div>
         <div className="flex flex-wrap gap-2 pb-1 text-sm font-semibold">
-          <button type="button" disabled={ocupado} onClick={() => entradaFoto.current?.click()} className="btn btn-ghost !px-4 !py-2">
+          <button
+            type="button"
+            disabled={ocupado}
+            onClick={() => entradaFoto.current?.click()}
+            className="btn btn-ghost !px-4 !py-2"
+          >
             {ocupado ? "Enviando…" : fotoUrl ? "Trocar foto" : "Adicionar foto de perfil"}
           </button>
           {fotoUrl && (
-            <button type="button" disabled={ocupado} onClick={() => remover("foto_url")} className="px-2 text-ink-500 hover:text-red-600">Remover</button>
+            <button
+              type="button"
+              disabled={ocupado}
+              onClick={() => remover("foto_url")}
+              className="px-2 text-ink-500 hover:text-red-600"
+            >
+              Remover
+            </button>
           )}
         </div>
       </div>
       {erro && <p className="px-6 pb-4 text-sm font-medium text-red-600">{erro}</p>}
 
-      <input ref={entradaFoto} type="file" accept="image/*" hidden onChange={(e) => { escolher("foto_url", e.target.files?.[0]); e.target.value = ""; }} />
-      <input ref={entradaCapa} type="file" accept="image/*" hidden onChange={(e) => { escolher("capa_url", e.target.files?.[0]); e.target.value = ""; }} />
+      <input
+        ref={entradaFoto}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={(e) => {
+          escolher("foto_url", e.target.files?.[0]);
+          e.target.value = "";
+        }}
+      />
+      <input
+        ref={entradaCapa}
+        type="file"
+        accept="image/*"
+        hidden
+        onChange={(e) => {
+          escolher("capa_url", e.target.files?.[0]);
+          e.target.value = "";
+        }}
+      />
 
       {pendente && (
         <Enquadrar

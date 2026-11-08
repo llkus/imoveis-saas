@@ -7,9 +7,16 @@ export default function DescricaoCurta({ texto, cor }: { texto: string; cor: str
   const [aberta, setAberta] = useState(false);
   return (
     <div>
-      <p className={`whitespace-pre-line text-[13px] leading-relaxed text-ink-700 ${aberta ? "" : "line-clamp-3"}`}>{texto}</p>
+      <p className={`whitespace-pre-line text-[13px] leading-relaxed text-ink-700 ${aberta ? "" : "line-clamp-3"}`}>
+        {texto}
+      </p>
       {texto.length > 140 && (
-        <button type="button" onClick={() => setAberta(!aberta)} className="mt-1 text-xs font-bold hover:underline" style={{ color: cor }}>
+        <button
+          type="button"
+          onClick={() => setAberta(!aberta)}
+          className="mt-1 text-xs font-bold hover:underline"
+          style={{ color: cor }}
+        >
           {aberta ? "Mostrar menos" : "Ler mais"}
         </button>
       )}

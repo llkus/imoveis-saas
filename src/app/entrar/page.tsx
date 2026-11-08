@@ -26,13 +26,13 @@ function Vitrine() {
   return (
     <div className="animate-fade-up">
       <p className="sobretitulo !text-accent-400">Portfólio de imóveis</p>
-      <h2 className="font-display mt-4 text-5xl font-medium leading-[1.05]">
-        Seus imóveis com cara de vitrine
-      </h2>
+      <h2 className="font-display mt-4 text-5xl font-medium leading-[1.05]">Seus imóveis com cara de vitrine</h2>
       <ul className="mt-8 space-y-3 text-white/90">
         {vantagens.map((t) => (
           <li key={t} className="flex items-center gap-3">
-            <span className="grid h-6 w-6 place-items-center rounded-full bg-white/15"><IconCheck className="h-3.5 w-3.5 text-accent-400" /></span>
+            <span className="grid h-6 w-6 place-items-center rounded-full bg-white/15">
+              <IconCheck className="h-3.5 w-3.5 text-accent-400" />
+            </span>
             {t}
           </li>
         ))}

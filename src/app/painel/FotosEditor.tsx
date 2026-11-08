@@ -9,7 +9,15 @@ type FotoRow = { id: string; url: string; ordem: number | null; capa: boolean | 
 
 const MAX_ENTRADA = 20 * 1024 * 1024;
 
-export default function FotosEditor({ imovelId, userId, fotos }: { imovelId: string; userId: string; fotos: FotoRow[] }) {
+export default function FotosEditor({
+  imovelId,
+  userId,
+  fotos,
+}: {
+  imovelId: string;
+  userId: string;
+  fotos: FotoRow[];
+}) {
   const router = useRouter();
   const entrada = useRef<HTMLInputElement>(null);
   const [ocupado, setOcupado] = useState(false);
@@ -21,7 +29,12 @@ export default function FotosEditor({ imovelId, userId, fotos }: { imovelId: str
   async function salvarOrdem(lista: FotoRow[]) {
     const db = criarClienteNavegador();
     const resultados = await Promise.all(
-      lista.map((f, i) => db.from("imovel_fotos").update({ ordem: i, capa: i === 0 }).eq("id", f.id)),
+      lista.map((f, i) =>
+        db
+          .from("imovel_fotos")
+          .update({ ordem: i, capa: i === 0 })
+          .eq("id", f.id),
+      ),
     );
     const falha = resultados.find((r) => r.error);
     if (falha?.error) setErro(falha.error.message);
@@ -49,9 +62,18 @@ export default function FotosEditor({ imovelId, userId, fotos }: { imovelId: str
           continue;
         }
         const corpo = await comprimirImagem(arq);
-        const ext = corpo === arq ? arq.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg" : "jpg";
+        const ext =
+          corpo === arq
+            ? arq.name
+                .split(".")
+                .pop()
+                ?.toLowerCase()
+                .replace(/[^a-z0-9]/g, "") || "jpg"
+            : "jpg";
         const caminho = `${userId}/${imovelId}/${crypto.randomUUID()}.${ext}`;
-        const { error: errUp } = await db.storage.from("imoveis").upload(caminho, corpo, { contentType: corpo.type || arq.type });
+        const { error: errUp } = await db.storage
+          .from("imoveis")
+          .upload(caminho, corpo, { contentType: corpo.type || arq.type });
         if (errUp) {
           setErro(errUp.message);
           continue;
@@ -81,8 +103,7 @@ export default function FotosEditor({ imovelId, userId, fotos }: { imovelId: str
       await salvarOrdem(lista);
     });
 
-  const definirCapa = (f: FotoRow) =>
-    executar(() => salvarOrdem([f, ...ordenadas.filter((o) => o.id !== f.id)]));
+  const definirCapa = (f: FotoRow) => executar(() => salvarOrdem([f, ...ordenadas.filter((o) => o.id !== f.id)]));
 
   return (
     <section className="card p-6">
@@ -103,14 +124,32 @@ export default function FotosEditor({ imovelId, userId, fotos }: { imovelId: str
             <li key={f.id} className="group relative aspect-[4/3] overflow-hidden rounded-xl bg-slate-100">
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img src={f.url} alt="" className="h-full w-full object-cover" />
-              {i === 0 && <span className="absolute left-2 top-2 rounded-full bg-brand-600 px-2 py-0.5 text-xs font-bold text-white">Capa</span>}
+              {i === 0 && (
+                <span className="absolute left-2 top-2 rounded-full bg-brand-600 px-2 py-0.5 text-xs font-bold text-white">
+                  Capa
+                </span>
+              )}
               <div className="absolute inset-x-0 bottom-0 flex items-center justify-between gap-1 bg-gradient-to-t from-black/75 to-transparent p-2 text-xs font-semibold text-white opacity-0 transition focus-within:opacity-100 group-hover:opacity-100">
                 <span className="flex gap-2">
-                  {i > 0 && <button type="button" disabled={ocupado} onClick={() => mover(i, -1)} aria-label="Mover para trás">◀</button>}
-                  {i < ordenadas.length - 1 && <button type="button" disabled={ocupado} onClick={() => mover(i, 1)} aria-label="Mover para frente">▶</button>}
-                  {i > 0 && <button type="button" disabled={ocupado} onClick={() => definirCapa(f)}>Capa</button>}
+                  {i > 0 && (
+                    <button type="button" disabled={ocupado} onClick={() => mover(i, -1)} aria-label="Mover para trás">
+                      ◀
+                    </button>
+                  )}
+                  {i < ordenadas.length - 1 && (
+                    <button type="button" disabled={ocupado} onClick={() => mover(i, 1)} aria-label="Mover para frente">
+                      ▶
+                    </button>
+                  )}
+                  {i > 0 && (
+                    <button type="button" disabled={ocupado} onClick={() => definirCapa(f)}>
+                      Capa
+                    </button>
+                  )}
                 </span>
-                <button type="button" disabled={ocupado} onClick={() => remover(f)}>Remover</button>
+                <button type="button" disabled={ocupado} onClick={() => remover(f)}>
+                  Remover
+                </button>
               </div>
             </li>
           ))}

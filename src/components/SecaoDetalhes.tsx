@@ -9,7 +9,10 @@ function Lista({ itens, cor }: { itens: string[]; cor: string }) {
     <ul className="mt-3 grid gap-x-6 gap-y-2.5 sm:grid-cols-2 lg:grid-cols-3">
       {itens.map((d) => (
         <li key={d} className="flex items-center gap-2.5 text-sm font-medium">
-          <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full text-white" style={{ background: cor }}>
+          <span
+            className="grid h-5 w-5 shrink-0 place-items-center rounded-full text-white"
+            style={{ background: cor }}
+          >
             <IconCheck className="h-3 w-3" />
           </span>
           {d}
@@ -39,12 +42,19 @@ export default function SecaoDetalhes({ imovel: i, cor }: { imovel: Imovel; cor:
     i.condominioAndares != null ? ["Andares do prédio", String(i.condominioAndares)] : null,
     i.condominioUnidadesAndar != null ? ["Unidades por andar", String(i.condominioUnidadesAndar)] : null,
     i.condominioTorres != null ? ["Torres", String(i.condominioTorres)] : null,
-    i.condominioIsento ? ["Condomínio", "Isento"] : i.valorCondominio != null ? ["Condomínio", mes(i.valorCondominio)] : null,
+    i.condominioIsento
+      ? ["Condomínio", "Isento"]
+      : i.valorCondominio != null
+        ? ["Condomínio", mes(i.valorCondominio)]
+        : null,
     iptu ? ["IPTU", iptu] : null,
   ].filter((l): l is Linha => l !== null);
 
   const condominio = i.caracteristicasCondominio ?? [];
-  const gruposCond = GRUPOS_CONDOMINIO.map((g) => ({ nome: g.nome, itens: g.itens.filter((x) => condominio.includes(x)) }));
+  const gruposCond = GRUPOS_CONDOMINIO.map((g) => ({
+    nome: g.nome,
+    itens: g.itens.filter((x) => condominio.includes(x)),
+  }));
   const outrasCond = condominio.filter((x) => !CARACTERISTICAS_CONDOMINIO.includes(x));
   if (outrasCond.length) gruposCond.push({ nome: "Outras", itens: outrasCond });
   const gruposComItens = gruposCond.filter((g) => g.itens.length > 0);

@@ -57,7 +57,10 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
           <p className="truncate text-sm font-bold leading-tight">{c.nome}</p>
           <p className="text-xs text-ink-500">{c.creci}</p>
         </div>
-        <span className="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white" style={{ background: c.corPrimaria }}>
+        <span
+          className="rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-white"
+          style={{ background: c.corPrimaria }}
+        >
           {rotuloFinalidade(i.finalidade)}
         </span>
       </div>
@@ -66,19 +69,29 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
         <div>
           <p className="sobretitulo">{i.tipo}</p>
           <h2 className="font-display mt-1 text-3xl font-medium leading-tight">{i.titulo}</h2>
-          <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ink-500"><IconPin /> {i.bairro}, {i.cidade}/{i.uf}</p>
+          <p className="mt-1.5 flex items-center gap-1.5 text-sm text-ink-500">
+            <IconPin /> {i.bairro}, {i.cidade}/{i.uf}
+          </p>
         </div>
 
         <div className="rounded-2xl border border-slate-200 bg-slate-50 px-5 py-4">
           <p className="text-xs text-ink-500">{rotuloPreco}</p>
-          <p className="font-display text-4xl font-medium" style={{ color: c.corPrimaria }}>{formatarPreco(i)}</p>
-          {aluguelExtra && <p className="mt-1 text-sm text-ink-700">ou alugue por <strong>{aluguelExtra}</strong></p>}
+          <p className="font-display text-4xl font-medium" style={{ color: c.corPrimaria }}>
+            {formatarPreco(i)}
+          </p>
+          {aluguelExtra && (
+            <p className="mt-1 text-sm text-ink-700">
+              ou alugue por <strong>{aluguelExtra}</strong>
+            </p>
+          )}
         </div>
 
         <div className="grid grid-cols-4 divide-x divide-slate-200 rounded-2xl border border-slate-200 py-3">
           {specs.map(({ Icon, v, k }) => (
             <div key={k} className="flex flex-col items-center gap-0.5 px-1 text-center">
-              <span style={{ color: c.corPrimaria }}><Icon className="h-5 w-5" /></span>
+              <span style={{ color: c.corPrimaria }}>
+                <Icon className="h-5 w-5" />
+              </span>
               <p className="font-display text-xl font-medium leading-tight">{v}</p>
               <p className="text-[10px] text-ink-500">{k}</p>
             </div>
@@ -90,22 +103,32 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
         {i.diferenciais.length > 0 && (
           <ul className="flex flex-wrap gap-1.5">
             {i.diferenciais.slice(0, 6).map((d) => (
-              <li key={d} className="flex items-center gap-1 rounded-full bg-slate-100 py-1 pl-1.5 pr-3 text-xs font-medium">
-                <span className="grid h-4 w-4 place-items-center rounded-full text-white" style={{ background: c.corPrimaria }}>
+              <li
+                key={d}
+                className="flex items-center gap-1 rounded-full bg-slate-100 py-1 pl-1.5 pr-3 text-xs font-medium"
+              >
+                <span
+                  className="grid h-4 w-4 place-items-center rounded-full text-white"
+                  style={{ background: c.corPrimaria }}
+                >
                   <IconCheck className="h-2.5 w-2.5" />
                 </span>
                 {d}
               </li>
             ))}
             {i.diferenciais.length > 6 && (
-              <li className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-ink-500">+{i.diferenciais.length - 6}</li>
+              <li className="rounded-full bg-slate-100 px-3 py-1 text-xs font-bold text-ink-500">
+                +{i.diferenciais.length - 6}
+              </li>
             )}
           </ul>
         )}
       </div>
 
       <div className="border-t border-slate-100 px-6 py-4">
-        <a href={link} className="btn btn-whatsapp w-full"><IconWhatsapp /> Chamar no WhatsApp</a>
+        <a href={link} className="btn btn-whatsapp w-full">
+          <IconWhatsapp /> Chamar no WhatsApp
+        </a>
         <p className="mt-2 text-center text-[11px] text-ink-500">Resposta rápida, sem compromisso.</p>
       </div>
     </div>
@@ -114,7 +137,10 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
   return (
     <main className="flex-1 pb-28 lg:pb-24">
       <div className="mx-auto max-w-6xl px-6 py-6">
-        <Link href={`/${c.slug}`} className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 transition hover:text-foreground">
+        <Link
+          href={`/${c.slug}`}
+          className="inline-flex items-center gap-1 text-sm font-medium text-ink-500 transition hover:text-foreground"
+        >
           ← Imóveis de {c.nome}
         </Link>
 
@@ -133,12 +159,16 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
               <span className="rounded-full bg-slate-200 px-3 py-1 text-slate-700">{i.tipo}</span>
             </div>
             <h1 className="font-display mt-3 text-4xl font-medium leading-tight sm:text-5xl">{i.titulo}</h1>
-            <p className="mt-2 flex items-center gap-1.5 text-ink-500"><IconPin /> {i.bairro}, {i.cidade}/{i.uf}</p>
+            <p className="mt-2 flex items-center gap-1.5 text-ink-500">
+              <IconPin /> {i.bairro}, {i.cidade}/{i.uf}
+            </p>
 
             <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-4">
               {specs.map(({ Icon, v, k }) => (
                 <div key={k} className="card flex flex-col items-center gap-1 p-4 text-center">
-                  <span style={{ color: c.corPrimaria }}><Icon className="h-6 w-6" /></span>
+                  <span style={{ color: c.corPrimaria }}>
+                    <Icon className="h-6 w-6" />
+                  </span>
                   <p className="font-display text-2xl font-medium">{v}</p>
                   <p className="text-xs text-ink-500">{k}</p>
                 </div>
@@ -152,8 +182,14 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
           <aside className="h-fit animate-fade-up [animation-delay:220ms] lg:sticky lg:top-6">
             <div className="card p-7">
               <p className="text-sm text-ink-500">{rotuloPreco}</p>
-              <p className="font-display mt-1 text-5xl font-medium" style={{ color: c.corPrimaria }}>{formatarPreco(i)}</p>
-              {aluguelExtra && <p className="mt-1 text-sm text-ink-700">ou alugue por <strong>{aluguelExtra}</strong></p>}
+              <p className="font-display mt-1 text-5xl font-medium" style={{ color: c.corPrimaria }}>
+                {formatarPreco(i)}
+              </p>
+              {aluguelExtra && (
+                <p className="mt-1 text-sm text-ink-700">
+                  ou alugue por <strong>{aluguelExtra}</strong>
+                </p>
+              )}
               <div className="my-6 border-t border-slate-100" />
               <div className="flex items-center gap-3">
                 <Avatar nome={c.nome} fotoUrl={c.fotoUrl} cor={c.corPrimaria} className="h-12 w-12 text-sm" />
@@ -162,7 +198,9 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
                   <p className="text-xs text-ink-500">{c.creci}</p>
                 </div>
               </div>
-              <a href={link} className="btn btn-whatsapp mt-6 w-full"><IconWhatsapp /> Chamar no WhatsApp</a>
+              <a href={link} className="btn btn-whatsapp mt-6 w-full">
+                <IconWhatsapp /> Chamar no WhatsApp
+              </a>
               <p className="mt-3 text-center text-xs text-ink-500">Resposta rápida, sem compromisso.</p>
             </div>
           </aside>
@@ -184,13 +222,10 @@ async function PaginaImovel({ params }: Pick<PageProps<"/[corretor]/[imovel]">, 
       </div>
 
       <ProtegerImagens />
-      <div className="hidden lg:block"><BotaoWhatsapp href={link} /></div>
-      <BarraContato
-        href={link}
-        preco={formatarPreco(i)}
-        rotulo={rotuloPreco}
-        cor={c.corPrimaria}
-      />
+      <div className="hidden lg:block">
+        <BotaoWhatsapp href={link} />
+      </div>
+      <BarraContato href={link} preco={formatarPreco(i)} rotulo={rotuloPreco} cor={c.corPrimaria} />
     </main>
   );
 }

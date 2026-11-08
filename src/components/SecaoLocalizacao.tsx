@@ -17,7 +17,17 @@ type Props = {
 };
 
 // Seção "Localização" da página pública: cartão com o endereço e botão que abre o mapa.
-export default function SecaoLocalizacao({ endereco, numero, mostrar = "completo", bairro, cidade, uf, latitude, longitude, cor }: Props) {
+export default function SecaoLocalizacao({
+  endereco,
+  numero,
+  mostrar = "completo",
+  bairro,
+  cidade,
+  uf,
+  latitude,
+  longitude,
+  cor,
+}: Props) {
   const [aberto, setAberto] = useState(false);
 
   // O corretor escolhe quanto do endereço fica público: nos modos parciais não usamos o ponto exato.
@@ -29,7 +39,9 @@ export default function SecaoLocalizacao({ endereco, numero, mostrar = "completo
   const local = {
     latitude: exato ? latitude : undefined,
     longitude: exato ? longitude : undefined,
-    consulta: [exato ? [endereco, numero].filter(Boolean).join(" ") : rua, bairro, cidade, uf, "Brasil"].filter(Boolean).join(", "),
+    consulta: [exato ? [endereco, numero].filter(Boolean).join(" ") : rua, bairro, cidade, uf, "Brasil"]
+      .filter(Boolean)
+      .join(", "),
   };
 
   if (!titulo) return null;
@@ -40,7 +52,10 @@ export default function SecaoLocalizacao({ endereco, numero, mostrar = "completo
 
       <div className="mt-4 overflow-hidden rounded-3xl border border-slate-200 bg-slate-100 p-3 sm:p-4">
         <div className="flex flex-wrap items-center gap-4 rounded-2xl border border-slate-200 bg-surface px-4 py-4 sm:px-5">
-          <span className="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white" style={{ background: cor }}>
+          <span
+            className="grid h-12 w-12 shrink-0 place-items-center rounded-xl text-white"
+            style={{ background: cor }}
+          >
             <IconPin className="h-6 w-6" />
           </span>
           <div className="min-w-0 flex-1">

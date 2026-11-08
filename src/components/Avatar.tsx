@@ -10,7 +10,12 @@ export default function Avatar({
   cor: string;
   className?: string;
 }) {
-  const iniciais = nome.split(" ").map((p) => p[0]).slice(0, 2).join("").toUpperCase();
+  const iniciais = nome
+    .split(" ")
+    .map((p) => p[0])
+    .slice(0, 2)
+    .join("")
+    .toUpperCase();
   return fotoUrl ? (
     // eslint-disable-next-line @next/next/no-img-element
     <img src={fotoUrl} alt={nome} className={`shrink-0 rounded-full object-cover ${className}`} />
