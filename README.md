@@ -16,7 +16,8 @@ e compartilharem um portfólio/landing page com clientes, inclusive em domínio 
 5. (Fase 2) Domínio próprio por corretor
 
 ## Configuração
-1. Crie um projeto no Supabase e rode no SQL Editor, nesta ordem: `supabase/schema.sql`, `supabase/painel.sql`, `supabase/licencas.sql`.
+1. Crie um projeto no Supabase e rode no SQL Editor, nesta ordem:
+   `supabase/schema.sql`, `painel.sql`, `licencas.sql`, `capa.sql`, `cadastro.sql` e `admin_busca.sql`.
 2. Copie `.env.local.example` para `.env.local` e preencha URL e anon key (Project Settings > API).
 3. `npm run dev`, crie sua conta em `/entrar` e torne-se admin com o SQL comentado no fim de `licencas.sql`.
 
@@ -26,3 +27,10 @@ Sem as variáveis de ambiente o site roda com dados de exemplo.
 - Login com Supabase Auth: a sessão é um JWT em cookie; o `src/proxy.ts` valida e renova o token.
 - Licença por corretor (`profiles.licenca_ativa` + `licenca_expira_em`). Sem licença válida o painel é bloqueado (`/licenca`), o portfólio público some e o banco recusa escrita (RLS).
 - `/admin`: o administrador ativa, define vencimento ou revoga a licença de cada corretor.
+- A busca do `/admin` (por e-mail, nome ou endereço) usa a função `admin_listar_corretores`, que só responde a administradores.
+
+## Scripts
+- `npm run dev`: servidor de desenvolvimento
+- `npm run build`: build de produção
+- `npm run lint`: ESLint
+- `npm run format`: Prettier (configuração em `.prettierrc.json`)

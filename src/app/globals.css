@@ -46,7 +46,6 @@
   --color-surface: var(--surface);
   --color-marca: var(--marca);
   --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
   --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
   --color-accent-400: #dcaa4c;
@@ -200,12 +199,6 @@ html { scroll-behavior: smooth; }
 .card-hover:hover {
   transform: translateY(-4px);
   box-shadow: 0 22px 40px -24px rgb(28 25 23 / 0.35);
-}
-
-.glass {
-  background: rgb(255 255 255 / 0.14);
-  border: 1px solid rgb(255 255 255 / 0.28);
-  backdrop-filter: blur(10px);
 }
 
 @media (prefers-reduced-motion: reduce) {

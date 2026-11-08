@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import { caminhoNoBucket, comprimirImagem } from "@/lib/imagem";
 import { criarClienteNavegador } from "@/lib/supabase/client";
 
-export type FotoRow = { id: string; url: string; ordem: number | null; capa: boolean | null };
+type FotoRow = { id: string; url: string; ordem: number | null; capa: boolean | null };
 
 const MAX_ENTRADA = 20 * 1024 * 1024;
 

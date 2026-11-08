@@ -28,8 +28,10 @@ export default function Enquadrar({
   // (u, v) = ponto da imagem (0..1) no centro do quadro; zoom 1 = imagem cobrindo o quadro.
   const [pos, setPos] = useState({ u: 0.5, v: 0.5, zoom: 1 });
 
+  // O endereço temporário da imagem é um recurso externo: criado ao montar, liberado ao desmontar.
   useEffect(() => {
     const url = URL.createObjectURL(arquivo);
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setSrc(url);
     return () => URL.revokeObjectURL(url);
   }, [arquivo]);

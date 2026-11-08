@@ -4,7 +4,7 @@ import type { Corretor, Imovel } from "./dados";
 
 const foto = (seed: string) => `https://picsum.photos/seed/${seed}/1200/800`;
 
-export const corretores: Corretor[] = [
+const corretores: Corretor[] = [
   {
     slug: "exemplo",
     nome: "Corretor Exemplo",
@@ -17,7 +17,7 @@ export const corretores: Corretor[] = [
   },
 ];
 
-export const imoveis: Record<string, Imovel[]> = {
+const imoveis: Record<string, Imovel[]> = {
   exemplo: [
     {
       slug: "casa-jardim-das-flores",

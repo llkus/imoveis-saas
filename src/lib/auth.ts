@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 import { criarClienteServidor } from "./supabase/server";
 
-export type Perfil = {
+type Perfil = {
   id: string;
   slug: string;
   nome: string;

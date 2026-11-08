@@ -1,6 +1,6 @@
 // Links de vídeo (YouTube ou Instagram) e de tour virtual. Funciona no servidor e no cliente.
 
-export type VideoEmbed = { provedor: "youtube" | "instagram"; embed: string; original: string };
+type VideoEmbed = { provedor: "youtube" | "instagram"; embed: string; original: string };
 
 function analisar(url: string) {
   try {
