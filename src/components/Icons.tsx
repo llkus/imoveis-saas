@@ -34,7 +34,10 @@ export const IconRuler = ({ className = "h-5 w-5" }: P) => (
 export const IconPin = ({ className = "h-4 w-4" }: P) => (
   <svg {...base} className={className}><path d="M12 21s7-6.2 7-11.5A7 7 0 0 0 5 9.5C5 14.800 12 21 12 21z" /><circle cx="12" cy="9.5" r="2.5" /></svg>
 );
-export const IconCheck = ({ className = "h-4 w-4" }: P) => (
+export const IconMap = ({ className = "h-5 w-5" }: P) => (
+  <svg {...base} className={className}><path d="M9 4 3 6.5v13.500L9 17.500l6 2.500 6-2.500V4l-6 2.500z" /><path d="M9 4v13.500M15 6.500V20" /></svg>
+);
+export const IconCheck =({ className = "h-4 w-4" }: P) => (
   <svg {...base} className={className}><path d="m5 12 5 5 9-10" /></svg>
 );
 export const IconArrow = ({ className = "h-4 w-4" }: P) => (
@@ -47,4 +50,13 @@ export const IconWhatsapp = ({ className = "h-5 w-5" }: P) => (
 );
 export const IconClose = ({ className = "h-6 w-6" }: P) => (
   <svg {...base} className={className}><path d="M6 6l12 12M18 6 6 18" /></svg>
+);
+export const IconGrid = ({ className = "h-5 w-5" }: P) => (
+  <svg {...base} className={className}><path d="M4 4h6v6H4zM14 4h6v6h-6zM4 14h6v6H4zM14 14h6v6h-6z" /></svg>
+);
+export const IconFeed = ({ className = "h-5 w-5" }: P) => (
+  <svg {...base} className={className}><path d="M4 5h16v6H4zM4 15h16v4H4z" /></svg>
+);
+export const IconImages = ({ className = "h-4 w-4" }: P) => (
+  <svg {...base} className={className}><path d="M8 8h12v12H8zM4 16V4h12" /></svg>
 );

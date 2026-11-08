@@ -12,6 +12,8 @@ export const corretores: Corretor[] = [
     whatsapp: "5511999999999",
     bio: "Corretor autônomo com foco em atendimento personalizado. Te ajudo a encontrar o imóvel certo, do primeiro contato à entrega das chaves.",
     corPrimaria: "#1d4ed8",
+    fotoUrl: "https://picsum.photos/seed/corretor/400/400",
+    capaUrl: "https://picsum.photos/seed/capa-vitrine/1600/600",
   },
 ];
 

@@ -2,30 +2,12 @@
 
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
+import { caminhoNoBucket, comprimirImagem } from "@/lib/imagem";
 import { criarClienteNavegador } from "@/lib/supabase/client";
 
 export type FotoRow = { id: string; url: string; ordem: number | null; capa: boolean | null };
 
 const MAX_ENTRADA = 20 * 1024 * 1024;
-const LADO_MAX = 1920;
-
-function caminhoNoBucket(url: string) {
-  const i = url.indexOf("/imoveis/");
-  return i >= 0 ? decodeURIComponent(url.slice(i + "/imoveis/".length)) : null;
-}
-
-// Redimensiona (lado maior até 1920px) e recomprime em JPEG: páginas públicas leves.
-async function comprimir(arq: File): Promise<Blob> {
-  const img = await createImageBitmap(arq);
-  const escala = Math.min(1, LADO_MAX / Math.max(img.width, img.height));
-  const canvas = document.createElement("canvas");
-  canvas.width = Math.round(img.width * escala);
-  canvas.height = Math.round(img.height * escala);
-  canvas.getContext("2d")!.drawImage(img, 0, 0, canvas.width, canvas.height);
-  img.close();
-  const blob = await new Promise<Blob | null>((ok) => canvas.toBlob(ok, "image/jpeg", 0.82));
-  return blob && blob.size < arq.size ? blob : arq;
-}
 
 export default function FotosEditor({ imovelId, userId, fotos }: { imovelId: string; userId: string; fotos: FotoRow[] }) {
   const router = useRouter();
@@ -66,7 +48,7 @@ export default function FotosEditor({ imovelId, userId, fotos }: { imovelId: str
           setErro(`"${arq.name}" ignorada: use imagens de até 20 MB.`);
           continue;
         }
-        const corpo = await comprimir(arq);
+        const corpo = await comprimirImagem(arq);
         const ext = corpo === arq ? arq.name.split(".").pop()?.toLowerCase().replace(/[^a-z0-9]/g, "") || "jpg" : "jpg";
         const caminho = `${userId}/${imovelId}/${crypto.randomUUID()}.${ext}`;
         const { error: errUp } = await db.storage.from("imoveis").upload(caminho, corpo, { contentType: corpo.type || arq.type });

@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Suspense } from "react";
-import Logo from "@/components/Logo";
+import TopoPainel from "@/components/TopoPainel";
 import { exigirAdmin, licencaValida, type Perfil } from "@/lib/auth";
 import { definirLicenca } from "./actions";
 
@@ -8,15 +8,13 @@ export const metadata = { title: "Administração | Vitrine" };
 
 export default function Page() {
   return (
-    <div className="flex-1 bg-slate-50">
-      <header className="border-b border-slate-200 bg-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between px-6 py-3">
-          <Link href="/painel"><Logo /></Link>
-          <Link href="/painel" className="text-sm font-semibold text-ink-700 hover:text-brand-600">← Meu painel</Link>
-        </div>
-      </header>
+    <div className="fundo-painel flex-1">
+      <TopoPainel>
+        <Link href="/painel" >← Meu painel</Link>
+      </TopoPainel>
       <main className="mx-auto max-w-5xl px-6 py-8">
-        <h1 className="text-2xl font-extrabold tracking-tight">Licenças dos corretores</h1>
+        <p className="sobretitulo">Administração</p>
+        <h1 className="font-display mt-2 text-4xl font-medium">Licenças dos corretores</h1>
         <Suspense fallback={<p className="mt-6 text-ink-500">Carregando…</p>}>
           <Lista />
         </Suspense>

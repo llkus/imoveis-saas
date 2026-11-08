@@ -1,53 +1,76 @@
 @import "tailwindcss";
 
+/* Direção visual: editorial, estilo revista de arquitetura.
+   Papel quente, tinta escura, verde-floresta da marca e detalhe em latão. */
 :root {
-  --background: #f6f8fc;
-  --foreground: #0f172a;
+  --background: #f6f2ea;
+  --foreground: #1b1a17;
+  --surface: #fffdf8; /* cartões e painéis (bg-surface) */
+  --marca: #1c4532; /* seções escuras e botão principal */
+  --linha: #e4ddd0;
 }
+
+/* Fora do "inline" para que o tema escuro consiga trocar estes valores. */
+@theme {
+  --color-ink-500: #78716c;
+  --color-ink-700: #44403c;
+
+  /* Neutros quentes no lugar do slate frio: todas as classes slate-* se adaptam. */
+  --color-slate-50: #f4f0e8;
+  --color-slate-100: #ece6da;
+  --color-slate-200: #ddd5c6;
+  --color-slate-300: #c4baa6;
+  --color-slate-400: #a39a88;
+  --color-slate-500: #78716c;
+  --color-slate-600: #57534e;
+  --color-slate-700: #44403c;
+  --color-slate-800: #292524;
+  --color-slate-900: #1c1917;
+  --color-slate-950: #12100e;
+
+  --color-brand-50: #edf3ee;
+  --color-brand-100: #d8e6dd;
+  --color-brand-200: #b2cfbd;
+  --color-brand-400: #4f8a6c;
+  --color-brand-500: #2f6b4f;
+  --color-brand-600: #24573f;
+  --color-brand-700: #1c4532;
+  --color-brand-900: #0f261b;
+}
+
+@custom-variant escuro (&:where([data-tema="escuro"], [data-tema="escuro"] *));
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-marca: var(--marca);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-fraunces), Georgia, "Times New Roman", serif;
 
-  /* Paleta da marca */
-  --color-brand-50: #eef3ff;
-  --color-brand-100: #dce6ff;
-  --color-brand-200: #bcd0ff;
-  --color-brand-400: #6b94ff;
-  --color-brand-500: #3d6bf5;
-  --color-brand-600: #2a50dc;
-  --color-brand-700: #2140b3;
-  --color-brand-900: #121f57;
-  --color-accent-400: #ffc233;
-  --color-accent-500: #f5a300;
-  --color-ink-500: #64748b;
-  --color-ink-700: #334155;
+  --color-accent-400: #dcaa4c;
+  --color-accent-500: #b8862b;
 
   --animate-float: float 6s ease-in-out infinite;
   --animate-float-slow: float 9s ease-in-out infinite;
-  --animate-fade-up: fade-up 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+  --animate-fade-up: fade-up 0.8s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-pulse-ring: pulse-ring 2.2s ease-out infinite;
 }
 
 @keyframes float {
   0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-14px); }
+  50% { transform: translateY(-10px); }
 }
 
 @keyframes fade-up {
-  from { opacity: 0; transform: translateY(24px); }
+  from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: none; }
 }
 
 @keyframes pulse-ring {
-  0% { box-shadow: 0 0 0 0 rgb(37 211 102 / 0.55); }
-  100% { box-shadow: 0 0 0 18px rgb(37 211 102 / 0); }
-}
-
-@keyframes shine {
-  to { transform: translateX(120%) skewX(-20deg); }
+  0% { box-shadow: 0 0 0 0 rgb(37 211 102 / 0.5); }
+  100% { box-shadow: 0 0 0 16px rgb(37 211 102 / 0); }
 }
 
 @keyframes fade-in {
@@ -55,7 +78,54 @@
   to { opacity: 1; }
 }
 
+/* Tema escuro: troca as variáveis da paleta, então as classes do Tailwind se adaptam sozinhas. */
+html[data-tema="escuro"] {
+  color-scheme: dark;
+  --background: #12100e;
+  --foreground: #ece7dd;
+  --surface: #1a1714;
+  --marca: #153526;
+  --linha: #2e2923;
+  --color-slate-50: #1d1a16;
+  --color-slate-100: #25211c;
+  --color-slate-200: #342f28;
+  --color-slate-300: #4a443a;
+  --color-slate-600: #b3aa9a;
+  --color-slate-700: #d2cabb;
+  --color-slate-800: #e5dfd2;
+  --color-slate-900: #f3eee4;
+  --color-ink-500: #a39a88;
+  --color-ink-700: #d2cabb;
+  --color-brand-50: #16261d;
+  --color-brand-100: #1d3326;
+  --color-brand-500: #5fae8a;
+  --color-brand-600: #7cc4a0;
+  --color-brand-700: #9ad6b6;
+}
+html[data-tema="escuro"] .bg-white { background-color: #1a1714; }
+html[data-tema="escuro"] .ring-white { --tw-ring-color: #1a1714; }
+html[data-tema="escuro"] .card { background: #1a1714; border-color: #2e2923; }
+html[data-tema="escuro"] .btn-ghost { background: transparent; border-color: #3d372e; color: #d2cabb; }
+html[data-tema="escuro"] .input { background: #15120f; border-color: #3d372e; color: #ece7dd; }
+html[data-tema="escuro"] .label { color: #d2cabb; }
+html[data-tema="escuro"] .btn-primary { background: #2f6b4f; }
+
+/* Fotos da vitrine: sem arrastar, sem menu de salvar no toque longo, sem seleção (ver components/ProtegerImagens.tsx) */
+body.protegida img {
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none;
+  user-select: none;
+}
+
+/* Troca de tema com revelação circular a partir do botão (ver components/ToggleTema.tsx) */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 body {
+  transition: background-color 0.3s, color 0.3s;
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-sans), system-ui, sans-serif;
@@ -63,89 +133,79 @@ body {
 }
 
 html { scroll-behavior: smooth; }
-::selection { background: var(--color-brand-200); }
+::selection { background: var(--color-brand-200); color: #0f261b; }
+
+/* Títulos em serifa: use junto de font-medium, sem negrito. */
+.font-display { font-family: var(--font-display); font-optical-sizing: auto; letter-spacing: -0.02em; }
+
+/* Rótulo pequeno em caixa alta acima de títulos */
+.sobretitulo {
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-accent-500);
+}
 
 /* Aparece suavemente ao rolar (ver components/Reveal.tsx) */
 .reveal {
   opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(24px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
 }
 .reveal.in { opacity: 1; transform: none; }
 
 /* Botões */
 .btn {
   position: relative;
-  overflow: hidden;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  border-radius: 0.875rem;
-  padding: 0.8rem 1.4rem;
+  border-radius: 999px;
+  padding: 0.8rem 1.5rem;
   font-weight: 600;
+  font-size: 0.95rem;
   line-height: 1.2;
-  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s;
+  transition: transform 0.2s, box-shadow 0.2s, background-color 0.2s, border-color 0.2s;
 }
-.btn:hover { transform: translateY(-2px); }
-.btn:active { transform: scale(0.96); }
+.btn:hover { transform: translateY(-1px); }
+.btn:active { transform: scale(0.97); }
+.btn:disabled { opacity: 0.6; pointer-events: none; }
 
-.btn-primary {
-  color: #fff;
-  background-image: linear-gradient(135deg, var(--color-brand-500), var(--color-brand-700));
-  box-shadow: 0 8px 22px -8px rgb(42 80 220 / 0.7);
-}
-.btn-primary:hover { box-shadow: 0 14px 28px -8px rgb(42 80 220 / 0.8); }
-.btn-primary::after {
-  content: "";
-  position: absolute;
-  inset: 0 auto 0 -60%;
-  width: 40%;
-  background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.35), transparent);
-  transform: skewX(-20deg);
-}
-.btn-primary:hover::after { animation: shine 0.8s ease; }
+.btn-primary { color: #fff; background: var(--marca); }
+.btn-primary:hover { background: var(--color-brand-500); box-shadow: 0 10px 24px -12px rgb(28 69 50 / 0.7); }
 
 .btn-ghost {
   color: var(--color-ink-700);
-  background: #fff;
-  border: 1px solid #e2e8f0;
+  background: transparent;
+  border: 1px solid #cfc6b4;
 }
-.btn-ghost:hover { border-color: var(--color-brand-400); color: var(--color-brand-700); }
+.btn-ghost:hover { border-color: var(--foreground); color: var(--foreground); }
 
-.btn-light { background: #fff; color: #0f172a; box-shadow: 0 8px 24px -10px rgb(0 0 0 / 0.5); }
+.btn-light { background: #fffdf8; color: #1b1a17; }
+.btn-light:hover { background: #fff; box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.5); }
 
-.btn-whatsapp {
-  color: #fff;
-  background-image: linear-gradient(135deg, #2ee27b, #14a850);
-  box-shadow: 0 8px 22px -8px rgb(20 168 80 / 0.7);
-}
-.btn-whatsapp:hover { box-shadow: 0 14px 28px -8px rgb(20 168 80 / 0.8); }
+.btn-whatsapp { color: #fff; background: #1faa59; }
+.btn-whatsapp:hover { background: #17924b; box-shadow: 0 10px 24px -12px rgb(20 168 80 / 0.8); }
 
-/* Cartões */
+/* Cartões: linha fina, sem sombra pesada */
 .card {
-  background: #fff;
-  border: 1px solid #e8edf5;
-  border-radius: 1.25rem;
-  transition: transform 0.3s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.3s;
+  background: var(--surface);
+  border: 1px solid var(--linha);
+  border-radius: 1.1rem;
+  transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s, border-color 0.2s;
 }
 .card-hover:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 24px 44px -20px rgb(15 23 42 / 0.28);
+  transform: translateY(-4px);
+  box-shadow: 0 22px 40px -24px rgb(28 25 23 / 0.35);
 }
 
 .glass {
-  background: rgb(255 255 255 / 0.12);
-  border: 1px solid rgb(255 255 255 / 0.25);
+  background: rgb(255 255 255 / 0.14);
+  border: 1px solid rgb(255 255 255 / 0.28);
   backdrop-filter: blur(10px);
-}
-
-.text-gradient {
-  background-image: linear-gradient(120deg, var(--color-brand-500), #8b5cf6 55%, var(--color-accent-500));
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -159,13 +219,26 @@ html { scroll-behavior: smooth; }
 
 .input {
   width: 100%;
-  border-radius: 0.75rem;
-  border: 1px solid #cbd5e1;
-  background: #fff;
-  padding: 0.65rem 0.9rem;
+  border-radius: 0.7rem;
+  border: 1px solid #d3cab9;
+  background: #fffdf8;
+  padding: 0.7rem 0.95rem;
   font-size: 0.95rem;
   outline: none;
   transition: border-color 0.2s, box-shadow 0.2s;
 }
-.input:focus { border-color: var(--color-brand-500); box-shadow: 0 0 0 3px rgb(61 107 245 / 0.18); }
+.input:focus { border-color: var(--color-brand-500); box-shadow: 0 0 0 3px rgb(47 107 79 / 0.18); }
 .label { display: block; margin-bottom: 0.35rem; font-size: 0.8rem; font-weight: 600; color: var(--color-ink-700); }
+
+/* Fundo das telas internas: papel liso com um brilho discreto */
+.fundo-painel {
+  background-color: var(--background);
+  background-image: radial-gradient(48rem 24rem at 100% 0%, rgb(184 134 43 / 0.07), transparent 70%);
+  background-attachment: fixed;
+}
+
+/* Textura de pontos sobre as seções verdes */
+.fundo-pontos {
+  background-image: radial-gradient(rgb(255 255 255 / 0.09) 1px, transparent 1px);
+  background-size: 22px 22px;
+}
